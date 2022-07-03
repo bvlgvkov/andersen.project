@@ -43,9 +43,9 @@ class MySiteTests {
         Assertions.assertEquals(ExpectedTitle, ActualTitle);
 
         WebElement element = driver.findElement(By.className("tips__3UvI"));
-        String ExpectedText = "or you can sign in with";
-        String ActualText = element.getText();
-        Assertions.assertEquals(ExpectedText, ActualText);
+        String expectedText = "or you can sign in with";
+        String actualText = element.getText();
+        Assertions.assertEquals(expectedText, actualText);
 
         WebElement nickname = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//*[@id=\"id_login\"]")));
@@ -74,9 +74,9 @@ class MySiteTests {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Two Sum"))).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[4]/iframe")));
 
-        String ActualText = driver.findElement(By.className("css-14oi08n")).getText();
-        String ExpectedText = "Easy";
-        Assertions.assertEquals(ExpectedText, ActualText);
+        String actualText = driver.findElement(By.className("css-14oi08n")).getText();
+        String expectedText = "Easy";
+        Assertions.assertEquals(expectedText, actualText);
 
         driver.switchTo().newWindow(WindowType.WINDOW);
         driver.navigate().to("https://www.google.com/");
@@ -97,9 +97,9 @@ class MySiteTests {
         boolean logoPresent = driver.findElement(By.xpath("//*[@id=\"logo\"]/img")).isDisplayed();
         Assertions.assertTrue(logoPresent);
 
-        String ActualText = driver.findElement(By.className("GmE3X")).getText();
-        String ExpectedText = "Картинки по запросу Let's Write The code ! :)";
-        Assertions.assertEquals(ExpectedText, ActualText);
+        String actualText = driver.findElement(By.className("GmE3X")).getText();
+        String expectedText = "Картинки по запросу Let's Write The code ! :)";
+        Assertions.assertEquals(expectedText, actualText);
     }
 
     @Test
@@ -112,15 +112,15 @@ class MySiteTests {
 
         elem = driver.findElement(By.className("r21Kzd"));
 
-        String ActualText = elem.getCssValue("visibility");
-        String ExpectedText = "visible";
-        Assertions.assertEquals(ExpectedText, ActualText);
+        String actualText = elem.getCssValue("visibility");
+        String expectedText = "visible";
+        Assertions.assertEquals(expectedText, actualText);
 
         elem.click();
         wait.until(ExpectedConditions.attributeContains(By.className("r21Kzd"), "visibility", "hidden"));
-        ActualText = elem.getCssValue("visibility");
-        ExpectedText = "hidden";
-        Assertions.assertEquals(ExpectedText, ActualText);
+        actualText = elem.getCssValue("visibility");
+        expectedText = "hidden";
+        Assertions.assertEquals(expectedText, actualText);
 
         elem = driver.findElement(By.xpath("//img[@src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE5q1QSDORlXiZIyVaeNB4JqMv1kQs2G9B2rPuAcptcw&s']"));
         boolean logoPresent = elem.isDisplayed();
