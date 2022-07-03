@@ -67,10 +67,13 @@ class MySiteTests {
     @Test
     @Order(2)
     public void twoTest() {
+        WebElement elem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Problems")));
+
         boolean logoPresent = driver.findElement(By.className("logo__3xn0")).isDisplayed();
         Assertions.assertTrue(logoPresent);
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Problems"))).click();
+        elem.click();
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Two Sum"))).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[4]/iframe")));
 
@@ -80,7 +83,7 @@ class MySiteTests {
 
         driver.switchTo().newWindow(WindowType.WINDOW);
         driver.navigate().to("https://www.google.com/");
-        WebElement elem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
+        elem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
         elem.click();
         elem.sendKeys("Let's Write The code ! :)");
 
