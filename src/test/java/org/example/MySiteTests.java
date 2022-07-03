@@ -1,19 +1,23 @@
 package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WindowType;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-class AppTest {
+import java.time.Duration;
+
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class MySiteTests {
 
     private static WebDriver driver;
+    private static WebDriverWait wait;
 
     @BeforeAll
     public static void setupAll() {
@@ -21,43 +25,47 @@ class AppTest {
         ChromeOptions chromeOptions = new ChromeOptions();
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
+        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     @AfterAll
     public static void tearDown() {
         driver.close();
+        driver.quit();
     }
 
     @Test
-    public void oneTest() throws InterruptedException {
+    @Order(1)
+    public void oneTest() {
         driver.get("https://leetcode.com/accounts/login/");
-        Thread.sleep(7000);
-        WebElement nickname = driver.findElement(By.xpath("//*[@id=\"id_login\"]"));
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("/html/body/div[4]/iframe")));
+        WebElement nickname = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@id=\"id_login\"]")));
         nickname.click();
         nickname.sendKeys("andersentest@mail.ru");
 
         WebElement password = driver.findElement(By.xpath("//*[@id=\"id_password\"]"));
         password.click();
         password.sendKeys("Chess_1995@");
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//*[@id=\"signin_btn\"]/div")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("//*[@id=\"signin_btn\"]/div")));
 
         driver.findElement(By.xpath("//*[@id=\"signin_btn\"]/div")).click();
-        Thread.sleep(7000);
     }
 
     @Test
-    public void twoTest() throws InterruptedException {
-        driver.findElement(By.xpath("//*[@id=\"navbar-root\"]/div/div/div[1]/div[3]/a")).click();
-        Thread.sleep(7000);
-
-        driver.findElement(By.xpath("//*[@id=\"__next\"]/div/div/div[1]/div[1]/div[6]/div[2]/div/div/div[2]/div[1]/div[1]/a")).click();
-        Thread.sleep(7000);
+    @Order(2)
+    public void twoTest() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Problems"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Two Sum"))).click();
 
         driver.switchTo().newWindow(WindowType.WINDOW);
         driver.navigate().to("https://www.google.com/");
-        Thread.sleep(3000);
-        WebElement elem = driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[1]/div/div[2]/input"));
+        WebElement elem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
         elem.click();
         elem.sendKeys("Let's Write The code ! :)");
-        Thread.sleep(7000);
     }
 }
