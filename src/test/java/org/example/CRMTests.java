@@ -34,10 +34,8 @@ class CRMTests {
     }
     @Test
     @Order(1)
-    public void threeTest() {
-        //driver.get("https://www.saucedemo.com/checkout-complete.html");
-        driver.switchTo().newWindow(WindowType.WINDOW);
-        driver.navigate().to("https://www.saucedemo.com/checkout-complete.html");
+    public void oneTest() {
+        driver.get("https://www.saucedemo.com/checkout-complete.html");
         WebElement nickname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("user-name")));
         nickname.click();
         nickname.sendKeys("standard_user");
@@ -59,7 +57,7 @@ class CRMTests {
 
     @Test
     @Order(2)
-    public void fourTest() {
+    public void twoTest() {
         driver.switchTo().newWindow(WindowType.WINDOW);
         driver.navigate().to("http://justnotepad.com/ru/");
         WebElement nickname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("editable_text")));
