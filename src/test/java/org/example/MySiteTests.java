@@ -2,10 +2,7 @@ package org.example;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -40,6 +37,16 @@ class MySiteTests {
         driver.get("https://leetcode.com/accounts/login/");
         wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("/html/body/div[4]/iframe")));
+
+        String ActualTitle = driver.getTitle();
+        String ExpectedTitle = "Account Login - LeetCode";
+        Assertions.assertEquals(ExpectedTitle, ActualTitle);
+
+        WebElement element = driver.findElement(By.className("tips__3UvI"));
+        String ExpectedText = "or you can sign in with";
+        String ActualText = element.getText();
+        Assertions.assertEquals(ExpectedText, ActualText);
+
         WebElement nickname = wait.until(ExpectedConditions.visibilityOfElementLocated(
                 By.xpath("//*[@id=\"id_login\"]")));
         nickname.click();
@@ -48,6 +55,7 @@ class MySiteTests {
         WebElement password = driver.findElement(By.xpath("//*[@id=\"id_password\"]"));
         password.click();
         password.sendKeys("Chess_1995@");
+
         wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//*[@id=\"signin_btn\"]/div")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(
@@ -59,13 +67,63 @@ class MySiteTests {
     @Test
     @Order(2)
     public void twoTest() {
+        boolean logoPresent = driver.findElement(By.className("logo__3xn0")).isDisplayed();
+        Assertions.assertTrue(logoPresent);
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Problems"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("Two Sum"))).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[4]/iframe")));
+
+        String ActualText = driver.findElement(By.className("css-14oi08n")).getText();
+        String ExpectedText = "Easy";
+        Assertions.assertEquals(ExpectedText, ActualText);
 
         driver.switchTo().newWindow(WindowType.WINDOW);
         driver.navigate().to("https://www.google.com/");
         WebElement elem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
         elem.click();
         elem.sendKeys("Let's Write The code ! :)");
+
+        logoPresent = driver.findElement(By.className("lnXdpd")).isDisplayed();
+        Assertions.assertTrue(logoPresent);
+    }
+
+    @Test
+    @Order(3)
+    public void threeTest() {
+        WebElement elem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
+        elem.sendKeys(Keys.RETURN);
+
+        boolean logoPresent = driver.findElement(By.xpath("//*[@id=\"logo\"]/img")).isDisplayed();
+        Assertions.assertTrue(logoPresent);
+
+        String ActualText = driver.findElement(By.className("GmE3X")).getText();
+        String ExpectedText = "Картинки по запросу Let's Write The code ! :)";
+        Assertions.assertEquals(ExpectedText, ActualText);
+    }
+
+    @Test
+    @Order(4)
+    public void fourTest() {
+        WebElement elem = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
+        elem.clear();
+        elem.sendKeys("Webdriver tests example");
+        elem.sendKeys(Keys.RETURN);
+
+        elem = driver.findElement(By.className("r21Kzd"));
+
+        String ActualText = elem.getCssValue("visibility");
+        String ExpectedText = "visible";
+        Assertions.assertEquals(ExpectedText, ActualText);
+
+        elem.click();
+        wait.until(ExpectedConditions.attributeContains(By.className("r21Kzd"), "visibility", "hidden"));
+        ActualText = elem.getCssValue("visibility");
+        ExpectedText = "hidden";
+        Assertions.assertEquals(ExpectedText, ActualText);
+
+        elem = driver.findElement(By.xpath("//img[@src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE5q1QSDORlXiZIyVaeNB4JqMv1kQs2G9B2rPuAcptcw&s']"));
+        boolean logoPresent = elem.isDisplayed();
+        Assertions.assertTrue(logoPresent);
     }
 }
