@@ -1,116 +1,85 @@
 package org.example;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.WindowType;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CRMTests {
-    private static WebDriver driver;
-    private static WebDriverWait wait;
+    private static WebDriverComponents webDriverComponents;
 
     @BeforeAll
     public static void setupAll() {
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        webDriverComponents = new WebDriverComponents();
     }
 
     @AfterAll
     public static void tearDown() {
-        driver.close();
-        driver.quit();
+        webDriverComponents.exit();
     }
     @Test
     @Order(1)
     public void oneTest() {
-        driver.get("https://www.saucedemo.com/checkout-complete.html");
-        WebElement nickname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("user-name")));
-        nickname.click();
-        nickname.sendKeys("standard_user");
+        webDriverComponents.openWebsite("https://www.saucedemo.com/checkout-complete.html");
+        webDriverComponents.visibilityOfElementLocated("name", "user-name")
+                .clickAndSendKeys("standard_user");
 
-        WebElement password = driver.findElement(By.name("password"));
-        password.click();
-        password.sendKeys("secret_sauce");
+        webDriverComponents.findElement("name", "password")
+                .clickAndSendKeys("secret_sauce")
+                .findAndClick("xPath", "//*[@id=\"login-button\"]");
 
-        driver.findElement(By.xpath("//*[@id=\"login-button\"]")).click();
-
-        boolean checkImage = driver.findElement(By.className("inventory_item_img")).isDisplayed();
+        boolean checkImage = webDriverComponents.isDisplayed("className", "inventory_item_img");
         Assertions.assertTrue(checkImage);
 
-        driver.findElement(By.xpath("//*[@id=\"add-to-cart-sauce-labs-backpack\"]")).click();
+        webDriverComponents.findAndClick("xPath", "//*[@id=\"add-to-cart-sauce-labs-backpack\"]");
 
-        String expectedElem = driver.findElement(By.className("shopping_cart_badge")).getText();
+        String expectedElem = webDriverComponents.findAndGetText("className", "shopping_cart_badge");
         String actualElem = "1";
         Assertions.assertEquals(actualElem, expectedElem);
 
-        driver.findElement(By.xpath("//*[@id=\"shopping_cart_container\"]/a")).click();
+        webDriverComponents.findAndClick("xPath", "//*[@id=\"shopping_cart_container\"]/a");
 
-        boolean checkLogo = driver.findElement(By.className("footer_robot")).isDisplayed();
+        boolean checkLogo = webDriverComponents.isDisplayed("className", "footer_robot");
         Assertions.assertTrue(checkLogo);
 
-        driver.findElement(By.xpath("//*[@id=\"checkout\"]")).click();
-        driver.findElement(By.xpath("//*[@id=\"first-name\"]")).sendKeys("Anatoliy");
-        driver.findElement(By.xpath("//*[@id=\"last-name\"]")).sendKeys("Bulgakov");
-        driver.findElement(By.xpath("//*[@id=\"postal-code\"]")).sendKeys("050051");
-        driver.findElement(By.xpath("//*[@id=\"continue\"]")).click();
+        webDriverComponents.findAndClick("xPath", "//*[@id=\"checkout\"]")
+                .findAndSendKeys("xPath", "//*[@id=\"first-name\"]", "Anatoliy")
+                .findAndSendKeys("xPath", "//*[@id=\"last-name\"]", "Bulgakov")
+                .findAndSendKeys("xPath", "//*[@id=\"postal-code\"]", "050051")
+                .findAndClick("xPath", "//*[@id=\"continue\"]");
 
-        expectedElem = driver.findElement(By.id("finish")).getText();
+        expectedElem = webDriverComponents.findAndGetText("id", "finish");
         actualElem = "FINISH";
         Assertions.assertEquals(actualElem, expectedElem);
 
-        driver.findElement(By.xpath("//*[@id=\"finish\"]")).click();
+        webDriverComponents.findAndClick("xPath", "//*[@id=\"finish\"]");
     }
 
     @Test
     @Order(2)
     public void twoTest() {
-        driver.switchTo().newWindow(WindowType.WINDOW);
-        driver.navigate().to("http://justnotepad.com/ru/");
-        WebElement nickname = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("editable_text")));
-        nickname.click();
-        nickname.sendKeys("Bulgakov Anatoliy");
+        webDriverComponents.changeSite("http://justnotepad.com/ru/")
+                .visibilityOfElementLocated("name", "editable_text")
+                .clickAndSendKeys("Bulgakov Anatoliy")
+                .findAndClick("id", "temp_url_nav");
 
-        driver.findElement(By.id("temp_url_nav")).click();
-
-        String expectedText = driver.findElement(By.id("temp_url_nav")).getText();
+        String expectedText = webDriverComponents.findElement("id", "temp_url_nav").getText();
         String actualText = "Создать временную ссылку для текущего текста";
         Assertions.assertEquals(actualText, expectedText);
 
-        expectedText = driver.findElement(By.id("delete_draft")).getText();
+        expectedText = webDriverComponents.findElement("id", "delete_draft").getText();
         actualText = "Удалить";
         Assertions.assertEquals(actualText, expectedText);
 
-        WebElement elem = driver.findElement(By.name("password"));
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.name("password")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.name("password")));
-        elem.click();
-        elem.sendKeys("12345678");
+        webDriverComponents.findElement("name", "password")
+                .presenceOfElementLocated("name", "password")
+                .visibilityOfElementLocated("name", "password")
+                .clickAndSendKeys("12345678");
 
-        driver.findElement(By.id("create_url")).click();
+        webDriverComponents.findAndClick("id", "create_url");
 
-
-        wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.id("temp_url")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(
-                By.id("temp_url")));
-        elem = driver.findElement(By.id("temp_url"));
-
+        actualText = webDriverComponents.presenceOfElementLocated("id", "temp_url")
+                .visibilityOfElementLocated("id", "temp_url")
+                .findElement("id", "temp_url").getAttribute("type");
         expectedText = "text";
-        actualText = elem.getAttribute("type");
         Assertions.assertEquals(actualText, expectedText);
     }
 }
