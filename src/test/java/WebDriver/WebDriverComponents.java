@@ -71,6 +71,9 @@ public class WebDriverComponents {
             element = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(name)));
         else if (Objects.equals(type, "id"))
             element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(name)));
+        else if (Objects.equals(type, "partialLinkText"))
+            element = wait.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText(name)));
+
         else
             element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(name)));
 
@@ -199,6 +202,10 @@ public class WebDriverComponents {
 
     public WebDriverComponents visibilityOfElementLocatedByLink(String problems) {
         return visibilityOfElementLocated(PARTIAL_LINK_TEXT, problems);
+    }
+
+    public WebDriverComponents presenceOfElementLocatedByLink(String name) {
+        return presenceOfElementLocated(PARTIAL_LINK_TEXT, name);
     }
 
     public String getVisibility() {
