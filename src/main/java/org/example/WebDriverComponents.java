@@ -10,10 +10,18 @@ import java.util.Objects;
 
 @Data
 public class WebDriverComponents {
+
     private WebDriver driver;
     private WebDriverWait wait;
     private WebElement element;
 
+    private static final String X_PATH = "xPath";
+    private static final String CLASS_NAME = "className";
+    private static final String PARTIAL_LINK_TEXT = "partialLinkText";
+    private static final String NAME = "name";
+    private static final String VISIBILITY = "visibility";
+
+    public static final String ID = "id";
     public WebDriverComponents() {
         SetupWebDriver setup = new SetupWebDriver();
         this.driver = setup.getDriver();
@@ -27,6 +35,19 @@ public class WebDriverComponents {
 
     public void openWebsite(String site) {
         driver.get(site);
+    }
+
+
+    public WebDriverComponents findElementByClassName(String elem) {
+        return findElement(CLASS_NAME, elem);
+    }
+
+    public WebDriverComponents presenceOfElementLocatedByXPath(String name) {
+        return presenceOfElementLocated(X_PATH, name);
+    }
+
+    public WebDriverComponents visibilityOfElementLocatedByXPath(String name) {
+        return visibilityOfElementLocated(X_PATH, name);
     }
 
     public WebDriverComponents visibilityOfElementLocated(String type, String name) {
@@ -70,6 +91,10 @@ public class WebDriverComponents {
         return this;
     }
 
+    public WebDriverComponents attributeContainByClassName(String name, String property, String value) {
+        return attributeContain(CLASS_NAME, name, property, value);
+    }
+
     public WebDriverComponents attributeContain(String type, String name, String property, String value) {
         if (Objects.equals(type, "name"))
             wait.until(ExpectedConditions.attributeContains(By.name(name), property, value));
@@ -90,11 +115,22 @@ public class WebDriverComponents {
         return this;
     }
 
-    public WebDriverComponents findAndClick(String type, String name) {
+    public void findAndClick(String type, String name) {
         findElement(type, name).clickElement();
-
-        return this;
     }
+
+    public WebDriverComponents findElementByName(String name) {
+        return findElement(NAME, name);
+    }
+
+    public WebDriverComponents findAndClickByXpath(String name) {
+        return findElement(X_PATH, name).clickElement();
+    }
+
+    public WebDriverComponents findElementByXpath(String name) {
+        return findElement(X_PATH, name);
+    }
+
 
     public WebDriverComponents findAndSendKeys(String type, String name, String keys) {
         findElement(type, name).sendKeys(keys);
@@ -124,8 +160,8 @@ public class WebDriverComponents {
         return this;
     }
 
-    public String findAndGetText(String type, String name) {
-        return findElement(type, name).getText();
+    public String findAndGetTextByClassName(String name) {
+        return findElement(CLASS_NAME, name).getText();
     }
 
     public WebDriverComponents changeSite(String site) {
@@ -151,11 +187,56 @@ public class WebDriverComponents {
         return element.getCssValue(value);
     }
 
+    public String getCssValueByVisibility() {
+        return element.getCssValue(VISIBILITY);
+    }
+
+
     public boolean isDisplayed() {
         return element.isDisplayed();
     }
 
-    public boolean isDisplayed(String type, String name) {
-        return findElement(type, name).isDisplayed();
+    public boolean isDisplayedByClassName(String name) {
+        return findElement(CLASS_NAME, name).isDisplayed();
+    }
+
+    public WebDriverComponents visibilityOfElementLocatedByName(String s) {
+        return visibilityOfElementLocated(NAME, s);
+    }
+
+    public WebDriverComponents visibilityOfElementLocatedByLink(String problems) {
+        return visibilityOfElementLocated(PARTIAL_LINK_TEXT, problems);
+    }
+
+    public String getVisibility() {
+        return VISIBILITY;
+    }
+
+    public WebDriverComponents findAndSendKeysByXPath(String s, String name) {
+        return findAndSendKeys(X_PATH, s, name);
+    }
+
+    public String findAndGetTextById(String name) {
+        return findElement(ID, name).getText();
+    }
+
+    public WebDriverComponents findElementById(String name) {
+        return findElement(ID, name);
+    }
+
+    public WebDriverComponents presenceOfElementLocatedById(String name) {
+        return presenceOfElementLocated(ID, name);
+    }
+
+    public WebDriverComponents visibilityOfElementLocatedById(String name) {
+        return visibilityOfElementLocated(ID, name);
+    }
+
+    public WebDriverComponents presenceOfElementLocatedByName(String name) {
+        return visibilityOfElementLocated(NAME, name);
+    }
+
+    public void findAndClickById(String name) {
+        findAndClick(ID, name);
     }
 }

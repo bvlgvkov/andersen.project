@@ -5,80 +5,69 @@ import org.junit.jupiter.api.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CRMTests {
     private static WebDriverComponents webDriverComponents;
+    private static SaucePage saucePage;
+    private static NotePadPage notePadPage;
 
     @BeforeAll
     public static void setupAll() {
         webDriverComponents = new WebDriverComponents();
+        saucePage = new SaucePage(webDriverComponents);
+        notePadPage = new NotePadPage(webDriverComponents);
     }
 
     @AfterAll
     public static void tearDown() {
         webDriverComponents.exit();
     }
+
     @Test
     @Order(1)
     public void oneTest() {
-        webDriverComponents.openWebsite("https://www.saucedemo.com/checkout-complete.html");
-        webDriverComponents.visibilityOfElementLocated("name", "user-name")
-                .clickAndSendKeys("standard_user");
+        saucePage.openPage();
 
-        webDriverComponents.findElement("name", "password")
-                .clickAndSendKeys("secret_sauce")
-                .findAndClick("xPath", "//*[@id=\"login-button\"]");
+        saucePage.loginPage().clickButton();
 
-        boolean checkImage = webDriverComponents.isDisplayed("className", "inventory_item_img");
+        boolean checkImage = saucePage.imageOneIsDisplayed();
         Assertions.assertTrue(checkImage);
 
-        webDriverComponents.findAndClick("xPath", "//*[@id=\"add-to-cart-sauce-labs-backpack\"]");
+        saucePage.findObjectOne();
 
-        String expectedElem = webDriverComponents.findAndGetText("className", "shopping_cart_badge");
+        String expectedElem = saucePage.getShoppingCard();
         String actualElem = "1";
         Assertions.assertEquals(actualElem, expectedElem);
 
-        webDriverComponents.findAndClick("xPath", "//*[@id=\"shopping_cart_container\"]/a");
+        saucePage.acceptPurchase();
 
-        boolean checkLogo = webDriverComponents.isDisplayed("className", "footer_robot");
+        boolean checkLogo = saucePage.imageTwoIsDisplayed();
         Assertions.assertTrue(checkLogo);
 
-        webDriverComponents.findAndClick("xPath", "//*[@id=\"checkout\"]")
-                .findAndSendKeys("xPath", "//*[@id=\"first-name\"]", "Anatoliy")
-                .findAndSendKeys("xPath", "//*[@id=\"last-name\"]", "Bulgakov")
-                .findAndSendKeys("xPath", "//*[@id=\"postal-code\"]", "050051")
-                .findAndClick("xPath", "//*[@id=\"continue\"]");
+        saucePage.fillPersonalData();
 
-        expectedElem = webDriverComponents.findAndGetText("id", "finish");
+        expectedElem = saucePage.getFinish();
         actualElem = "FINISH";
         Assertions.assertEquals(actualElem, expectedElem);
 
-        webDriverComponents.findAndClick("xPath", "//*[@id=\"finish\"]");
+        saucePage.clickFinishIdButton();
     }
 
     @Test
     @Order(2)
     public void twoTest() {
-        webDriverComponents.changeSite("http://justnotepad.com/ru/")
-                .visibilityOfElementLocated("name", "editable_text")
-                .clickAndSendKeys("Bulgakov Anatoliy")
-                .findAndClick("id", "temp_url_nav");
+        notePadPage.openWebsite();
 
-        String expectedText = webDriverComponents.findElement("id", "temp_url_nav").getText();
+        String expectedText = notePadPage.getTabNav().getText();
         String actualText = "Создать временную ссылку для текущего текста";
         Assertions.assertEquals(actualText, expectedText);
 
-        expectedText = webDriverComponents.findElement("id", "delete_draft").getText();
+        expectedText = notePadPage.getDeleteDraft().getText();
         actualText = "Удалить";
         Assertions.assertEquals(actualText, expectedText);
 
-        webDriverComponents.findElement("name", "password")
-                .presenceOfElementLocated("name", "password")
-                .visibilityOfElementLocated("name", "password")
-                .clickAndSendKeys("12345678");
+        notePadPage.setPassword();
 
-        webDriverComponents.findAndClick("id", "create_url");
+        notePadPage.createUrl();
 
-        actualText = webDriverComponents.presenceOfElementLocated("id", "temp_url")
-                .visibilityOfElementLocated("id", "temp_url")
-                .findElement("id", "temp_url").getAttribute("type");
+        actualText = notePadPage.getTempAttribute();
         expectedText = "text";
         Assertions.assertEquals(actualText, expectedText);
     }
