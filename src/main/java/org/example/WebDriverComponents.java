@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Objects;
 
-
 @Data
 public class WebDriverComponents {
 
@@ -131,7 +130,6 @@ public class WebDriverComponents {
         return findElement(X_PATH, name);
     }
 
-
     public WebDriverComponents findAndSendKeys(String type, String name, String keys) {
         findElement(type, name).sendKeys(keys);
 
@@ -183,14 +181,9 @@ public class WebDriverComponents {
         return driver.getTitle();
     }
 
-    public String getCssValue(String value) {
-        return element.getCssValue(value);
-    }
-
     public String getCssValueByVisibility() {
         return element.getCssValue(VISIBILITY);
     }
-
 
     public boolean isDisplayed() {
         return element.isDisplayed();
