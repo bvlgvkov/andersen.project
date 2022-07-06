@@ -1,10 +1,7 @@
 package Tests;
 
 import Setups.MySiteTestsSetup;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebElement;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
