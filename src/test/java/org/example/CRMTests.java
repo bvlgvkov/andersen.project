@@ -1,25 +1,13 @@
 package org.example;
 
-import org.junit.jupiter.api.*;
+import Setups.CRMTestsSetup;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class CRMTests {
-    private static WebDriverComponents webDriverComponents;
-    private static SaucePage saucePage;
-    private static NotePadPage notePadPage;
-
-    @BeforeAll
-    public static void setupAll() {
-        webDriverComponents = new WebDriverComponents();
-        saucePage = new SaucePage(webDriverComponents);
-        notePadPage = new NotePadPage(webDriverComponents);
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        webDriverComponents.exit();
-    }
-
+class CRMTests extends CRMTestsSetup {
     @Test
     @Order(1)
     public void oneTest() {
@@ -27,25 +15,19 @@ class CRMTests {
 
         saucePage.loginPage().clickButton();
 
-        boolean checkImage = saucePage.imageOneIsDisplayed();
-        Assertions.assertTrue(checkImage);
+        saucePage.imageOneIsDisplayed();
 
         saucePage.findObjectOne();
 
-        String expectedElem = saucePage.getShoppingCard();
-        String actualElem = "1";
-        Assertions.assertEquals(actualElem, expectedElem);
+        saucePage.getShoppingCard();
 
         saucePage.acceptPurchase();
 
-        boolean checkLogo = saucePage.imageTwoIsDisplayed();
-        Assertions.assertTrue(checkLogo);
+        saucePage.imageTwoIsDisplayed();
 
         saucePage.fillPersonalData();
 
-        expectedElem = saucePage.getFinish();
-        actualElem = "FINISH";
-        Assertions.assertEquals(actualElem, expectedElem);
+        saucePage.getFinish();
 
         saucePage.clickFinishIdButton();
     }
@@ -55,20 +37,14 @@ class CRMTests {
     public void twoTest() {
         notePadPage.openWebsite();
 
-        String expectedText = notePadPage.getTabNav().getText();
-        String actualText = "Создать временную ссылку для текущего текста";
-        Assertions.assertEquals(actualText, expectedText);
+        notePadPage.getTabNav();
 
-        expectedText = notePadPage.getDeleteDraft().getText();
-        actualText = "Удалить";
-        Assertions.assertEquals(actualText, expectedText);
+        notePadPage.getDeleteDraft();
 
         notePadPage.setPassword();
 
         notePadPage.createUrl();
 
-        actualText = notePadPage.getTempAttribute();
-        expectedText = "text";
-        Assertions.assertEquals(actualText, expectedText);
+        notePadPage.getTempAttribute();
     }
 }

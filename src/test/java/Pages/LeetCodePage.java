@@ -1,8 +1,12 @@
-package org.example;
+package Pages;
 
+import WebDriver.WebDriverComponents;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 @AllArgsConstructor
@@ -25,12 +29,16 @@ public class LeetCodePage {
         webDriverComponents.openWebsite(WEBSITE);
     }
 
-    public WebDriverComponents presenceOfElementLocatedByXPath() {
-        return webDriverComponents.presenceOfElementLocatedByXPath(MAIN_IFRAME);
+    public void presenceOfElementLocatedByXPath() {
+        String actualText =  webDriverComponents.presenceOfElementLocatedByXPath(MAIN_IFRAME).getTitle();
+        String expectedText = "Account Login - LeetCode";
+        assertEquals(expectedText, actualText);
     }
 
-    public WebDriverComponents findElementSignInWith() {
-        return webDriverComponents.findElementByClassName(OR_YOU_CAN_SIGN_IN_WITH);
+    public void findElementSignInWith() {
+        String actualText = webDriverComponents.findElementByClassName(OR_YOU_CAN_SIGN_IN_WITH).getText();
+        String expectedText = "or you can sign in with";
+        Assertions.assertEquals(expectedText, actualText);
     }
 
     public void loginPage() {
@@ -50,8 +58,8 @@ public class LeetCodePage {
         return webDriverComponents.visibilityOfElementLocatedByLink(PROBLEMS).getElement();
     }
 
-    public WebDriverComponents getLogo() {
-        return webDriverComponents.findElementByClassName(LOGO);
+    public void getLogo() {
+        Assertions.assertTrue(webDriverComponents.findElementByClassName(LOGO).isDisplayed());
     }
 
     public void clickTwoSum() {
@@ -59,7 +67,9 @@ public class LeetCodePage {
                 .presenceOfElementLocatedByXPath(MAIN_IFRAME);
     }
 
-    public WebDriverComponents getEasy() {
-        return webDriverComponents.findElementByClassName(EASY);
+    public void getEasy() {
+        String actualText = webDriverComponents.findElementByClassName(EASY).getText();
+        String expectedText = "Easy";
+        Assertions.assertEquals(expectedText, actualText);
     }
 }

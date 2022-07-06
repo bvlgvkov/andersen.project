@@ -1,7 +1,11 @@
-package org.example;
+package Pages;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import WebDriver.WebDriverComponents;
+import org.junit.jupiter.api.Assertions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 @AllArgsConstructor
@@ -18,12 +22,16 @@ public class NotePadPage {
     private static final String WEBSITE = "http://justnotepad.com/ru/";
     private static final String TEMP_URL_NAV = "temp_url_nav";
 
-    public WebDriverComponents getTabNav() {
-        return webDriverComponents.findElementById(TEMP_URL_NAV);
+    public void getTabNav() {
+        String expectedText = webDriverComponents.findElementById(TEMP_URL_NAV).getText();
+        String actualText = "Создать временную ссылку для текущего текста";
+        Assertions.assertEquals(actualText, expectedText);
     }
 
-    public WebDriverComponents getDeleteDraft() {
-        return webDriverComponents.findElementById(DELETE_DRAFt);
+    public void getDeleteDraft() {
+        String expectedText = webDriverComponents.findElementById(DELETE_DRAFt).getText();
+        String actualText = "Удалить";
+        Assertions.assertEquals(actualText, expectedText);
     }
 
     public void openWebsite() {
@@ -44,9 +52,11 @@ public class NotePadPage {
         webDriverComponents.findAndClickById(CREATE_URL);
     }
 
-    public String getTempAttribute() {
-        return webDriverComponents.presenceOfElementLocatedById(TEMP_URL)
+    public void getTempAttribute() {
+        String actualText = webDriverComponents.presenceOfElementLocatedById(TEMP_URL)
                 .visibilityOfElementLocatedById(TEMP_URL)
                 .findElementById(TEMP_URL).getAttribute(TYPE);
+        String expectedText = "text";
+        assertEquals(actualText, expectedText);
     }
 }

@@ -1,4 +1,4 @@
-package org.example;
+package WebDriver;
 
 import lombok.Data;
 import org.openqa.selenium.*;

@@ -1,41 +1,26 @@
 package org.example;
 
-import org.junit.jupiter.api.*;
+import Setups.MySiteTestsSetup;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.WebElement;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class MySiteTests {
-
-    private static WebDriverComponents webDriverComponents;
-    private static LeetCodePage leetCodePage;
-    private static GooglePage googlePage;
-
-    @BeforeAll
-    public static void setupAll() {
-        webDriverComponents = new WebDriverComponents();
-        leetCodePage = new LeetCodePage(webDriverComponents);
-        googlePage = new GooglePage(webDriverComponents);
-    }
-
-    @AfterAll
-    public static void tearDown() {
-        webDriverComponents.exit();
-    }
+class MySiteTests extends MySiteTestsSetup {
 
     @Test
     @Order(1)
     public void oneTest() {
         leetCodePage.openPage();
 
-        String ActualTitle = leetCodePage.presenceOfElementLocatedByXPath().getTitle();
-        String ExpectedTitle = "Account Login - LeetCode";
-        Assertions.assertEquals(ExpectedTitle, ActualTitle);
+        leetCodePage.presenceOfElementLocatedByXPath();
 
-        String actualText = leetCodePage.findElementSignInWith().getText();
-        String expectedText = "or you can sign in with";
-        Assertions.assertEquals(expectedText, actualText);
+        leetCodePage.findElementSignInWith();
 
         leetCodePage.loginPage();
+
         leetCodePage.clickSignInBottom();
     }
 
@@ -44,16 +29,13 @@ class MySiteTests {
     public void twoTest() {
         WebElement elem = leetCodePage.getElemProblem();
 
-        boolean logoPresent = leetCodePage.getLogo().isDisplayed();
-        Assertions.assertTrue(logoPresent);
+        leetCodePage.getLogo();
 
         elem.click();
 
         leetCodePage.clickTwoSum();
 
-        String actualText = leetCodePage.getEasy().getText();
-        String expectedText = "Easy";
-        Assertions.assertEquals(expectedText, actualText);
+        leetCodePage.getEasy();
     }
 
     @Test
@@ -61,17 +43,13 @@ class MySiteTests {
     public void threeTest() {
         googlePage.openGoogle().clickEndSendMassage();
 
-        boolean logoPresent = googlePage.getMainElem().isDisplayed();
-        Assertions.assertTrue(logoPresent);
+        googlePage.getMainElem();
 
         googlePage.pressEnter();
 
-        logoPresent = googlePage.getLogo().isDisplayed();
-        Assertions.assertTrue(logoPresent);
+        googlePage.getLogo();
 
-        String actualText = googlePage.getImageOne().getText();
-        String expectedText = "Картинки по запросу Let's Write The code ! :)";
-        Assertions.assertEquals(expectedText, actualText);
+        googlePage.getImageOne();
     }
 
     @Test
@@ -79,15 +57,10 @@ class MySiteTests {
     public void fourTest() {
         googlePage.sendNewMassage();
 
-        String actualText = googlePage.checkToVisible().getCssValueByVisibility();
-        String expectedText = "visible";
-        Assertions.assertEquals(expectedText, actualText);
+        googlePage.checkToVisible();
 
-        actualText = googlePage.checkToHidden().getCssValueByVisibility();
-        expectedText = "hidden";
-        Assertions.assertEquals(expectedText, actualText);
+        googlePage.checkToHidden();
 
-        boolean logoPresent = googlePage.getImageTwo().isDisplayed();
-        Assertions.assertTrue(logoPresent);
+        googlePage.getImageTwo();
     }
 }

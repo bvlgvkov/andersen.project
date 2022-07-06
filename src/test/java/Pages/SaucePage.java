@@ -1,8 +1,12 @@
-package org.example;
+package Pages;
 
 
+import WebDriver.WebDriverComponents;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.junit.jupiter.api.Assertions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 @AllArgsConstructor
@@ -46,20 +50,20 @@ public class SaucePage {
         webDriverComponents.findAndClickByXpath(LOGIN_BUTTON);
     }
 
-    public boolean imageOneIsDisplayed() {
-        return webDriverComponents.isDisplayedByClassName(IMAGE_ONE);
+    public void imageOneIsDisplayed() {
+        Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_ONE));
     }
-
-    public boolean imageTwoIsDisplayed() {
-        return webDriverComponents.isDisplayedByClassName(IMAGE_TWO);
+    public void imageTwoIsDisplayed() {
+        Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_TWO));
     }
-
     public void findObjectOne() {
         webDriverComponents.findAndClickByXpath(BACKPACK);
     }
 
-    public String getShoppingCard() {
-        return webDriverComponents.findAndGetTextByClassName(SHOPPING_CARD);
+    public void getShoppingCard() {
+        String expectedElem = webDriverComponents.findAndGetTextByClassName(SHOPPING_CARD);
+        String actualElem = "1";
+        Assertions.assertEquals(actualElem, expectedElem);
     }
 
     public void acceptPurchase() {
@@ -74,8 +78,10 @@ public class SaucePage {
                 .findAndClickByXpath(CONTINUE);
     }
 
-    public String getFinish() {
-        return webDriverComponents.findAndGetTextById(FINISH);
+    public void getFinish() {
+        String expectedElem = webDriverComponents.findAndGetTextById(FINISH);
+        String actualElem = "FINISH";
+        assertEquals(actualElem, expectedElem);
     }
 
     public void clickFinishIdButton() {
