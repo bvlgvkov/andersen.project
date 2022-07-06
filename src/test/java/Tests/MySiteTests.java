@@ -1,4 +1,4 @@
-package org.example;
+package Tests;
 
 import Setups.MySiteTestsSetup;
 import org.junit.jupiter.api.MethodOrderer;

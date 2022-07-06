@@ -1,4 +1,4 @@
-package org.example;
+package Tests;
 
 import Setups.CRMTestsSetup;
 import org.junit.jupiter.api.MethodOrderer;
