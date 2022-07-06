@@ -22,6 +22,8 @@ class MySiteTests extends MySiteTestsSetup {
         leetCodePage.loginPage();
 
         leetCodePage.clickSignInBottom();
+
+        leetCodePage.waitContributePromo();
     }
 
     @Test

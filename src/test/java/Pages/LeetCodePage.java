@@ -3,14 +3,17 @@ package Pages;
 import WebDriver.WebDriverComponents;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Data
 @AllArgsConstructor
 public class LeetCodePage {
+    private static final String CONTRIBUTE_PROMO = "//*[@id=\"contribute-promo\"]";
     WebDriverComponents webDriverComponents;
     private static final String TWO_SUM = "Two Sum";
     private static final String WEBSITE = "https://leetcode.com/accounts/login/";
@@ -30,7 +33,7 @@ public class LeetCodePage {
     }
 
     public void presenceOfElementLocatedByXPath() {
-        String actualText =  webDriverComponents.presenceOfElementLocatedByXPath(MAIN_IFRAME).getTitle();
+        String actualText = webDriverComponents.presenceOfElementLocatedByXPath(MAIN_IFRAME).getTitle();
         String expectedText = "Account Login - LeetCode";
         assertEquals(expectedText, actualText);
     }
@@ -38,7 +41,7 @@ public class LeetCodePage {
     public void findElementSignInWith() {
         String actualText = webDriverComponents.findElementByClassName(OR_YOU_CAN_SIGN_IN_WITH).getText();
         String expectedText = "or you can sign in with";
-        Assertions.assertEquals(expectedText, actualText);
+        assertEquals(expectedText, actualText);
     }
 
     public void loginPage() {
@@ -55,11 +58,12 @@ public class LeetCodePage {
     }
 
     public WebElement getElemProblem() {
-        return webDriverComponents.visibilityOfElementLocatedByLink(PROBLEMS).getElement();
+       return webDriverComponents.presenceOfElementLocatedByLink(PROBLEMS)
+               .visibilityOfElementLocatedByLink(PROBLEMS).getElement();
     }
 
     public void getLogo() {
-        Assertions.assertTrue(webDriverComponents.findElementByClassName(LOGO).isDisplayed());
+        assertTrue(webDriverComponents.findElementByClassName(LOGO).isDisplayed());
     }
 
     public void clickTwoSum() {
@@ -70,6 +74,11 @@ public class LeetCodePage {
     public void getEasy() {
         String actualText = webDriverComponents.findElementByClassName(EASY).getText();
         String expectedText = "Easy";
-        Assertions.assertEquals(expectedText, actualText);
+        assertEquals(expectedText, actualText);
+    }
+
+    public void waitContributePromo() {
+        webDriverComponents.getWait().until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath(CONTRIBUTE_PROMO)));
     }
 }
