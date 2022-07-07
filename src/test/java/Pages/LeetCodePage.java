@@ -1,6 +1,7 @@
 package Pages;
 
 import WebDriver.WebDriverComponents;
+import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.openqa.selenium.By;
@@ -28,10 +29,12 @@ public class LeetCodePage {
     private static final String LOGO = "logo__3xn0";
     private static final String EASY = "css-14oi08n";
 
+    @Step("Type")
     public void openPage() {
         webDriverComponents.openWebsite(WEBSITE);
     }
 
+    @Step("Type")
     public void presenceOfElementLocatedByXPath() {
         String actualText = webDriverComponents.presenceOfElementLocatedByXPath(MAIN_IFRAME).getTitle();
         String expectedText = "Account Login - LeetCode";

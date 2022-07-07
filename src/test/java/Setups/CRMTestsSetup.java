@@ -6,8 +6,9 @@ import WebDriver.WebDriverComponents;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
+
 public class CRMTestsSetup {
-    public static WebDriverComponents webDriverComponents;
+    private static WebDriverComponents webDriverComponents;
     public static SaucePage saucePage;
     public static NotePadPage notePadPage;
 

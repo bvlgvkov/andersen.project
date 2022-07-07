@@ -2,14 +2,18 @@ package Pages;
 
 
 import WebDriver.WebDriverComponents;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 @AllArgsConstructor
+@DisplayName("Тестирование класса SaucePage")
 public class SaucePage {
     WebDriverComponents webDriverComponents;
     private static final String LOGIN_BUTTON = "//*[@id=\"login-button\"]";
@@ -34,42 +38,59 @@ public class SaucePage {
     private static final String PASSWORD_NAME = "secret_sauce";
     private static final String FINISH = "finish";
 
+    @Step("Открыть страницу")
+    @Story(value = "Open Website")
     public void openPage() {
         webDriverComponents.openWebsite(WEBSITE);
     }
 
+    @Step("Залогиниться")
+    @Story(value = "Login Website")
     public SaucePage loginPage() {
         webDriverComponents.visibilityOfElementLocatedByName(LOGIN).clickAndSendKeys(LOGIN_NAME);
-
         webDriverComponents = webDriverComponents.findElementByName(PASSWORD).clickAndSendKeys(PASSWORD_NAME);
 
         return this;
     }
 
+    @Step("Нажать логин button")
+    @Story(value = "Click Button")
     public void clickButton() {
         webDriverComponents.findAndClickByXpath(LOGIN_BUTTON);
     }
 
+    @Step("Проверка на отображение картинку N1")
+    @Story(value = "Check Image")
     public void imageOneIsDisplayed() {
         Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_ONE));
     }
+    @Step("Проверка на отображение картинку N2")
+    @Story(value = "Check Image")
     public void imageTwoIsDisplayed() {
         Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_TWO));
     }
+    @Step("Поиск и нажатие специализированного товара")
+    @Story(value = "Click Button")
     public void findObjectOne() {
         webDriverComponents.findAndClickByXpath(BACKPACK);
     }
 
+    @Step("Проверка на регистрацию магазинной карты")
+    @Story(value = "Check To Correct Existing")
     public void getShoppingCard() {
         String expectedElem = webDriverComponents.findAndGetTextByClassName(SHOPPING_CARD);
         String actualElem = "1";
         Assertions.assertEquals(actualElem, expectedElem);
     }
 
+    @Step("Подтверждение добавления покупки в контейнер")
+    @Story(value = "Click Button")
     public void acceptPurchase() {
         webDriverComponents.findAndClickByXpath(CONTAINER);
     }
 
+    @Step("Заполнение персональных данных")
+    @Story(value = "Fill Data")
     public void fillPersonalData() {
         webDriverComponents.findAndClickByXpath(CHECKOUT_ID)
                 .findAndSendKeysByXPath(FIRST_NAME, NAME)
@@ -78,12 +99,16 @@ public class SaucePage {
                 .findAndClickByXpath(CONTINUE);
     }
 
+    @Step("Поиск кнопки Подтверждения окончательной покупки")
+    @Story(value = "Check To Correct Existing")
     public void getFinish() {
         String expectedElem = webDriverComponents.findAndGetTextById(FINISH);
         String actualElem = "FINISH";
         assertEquals(actualElem, expectedElem);
     }
 
+    @Step("Подтверждение окончательной покупки")
+    @Story(value = "Click Button")
     public void clickFinishIdButton() {
         webDriverComponents.findAndClickByXpath(FINISH_ID);
     }

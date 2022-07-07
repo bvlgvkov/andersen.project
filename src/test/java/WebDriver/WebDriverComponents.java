@@ -1,6 +1,7 @@
 package WebDriver;
 
 import lombok.Data;
+import lombok.Getter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -8,12 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Objects;
 
 @Data
+@Getter
 public class WebDriverComponents {
-
-    private WebDriver driver;
+    private static WebDriver driver;
     private WebDriverWait wait;
     private WebElement element;
-
     private static final String X_PATH = "xPath";
     private static final String CLASS_NAME = "className";
     private static final String PARTIAL_LINK_TEXT = "partialLinkText";
@@ -23,8 +23,12 @@ public class WebDriverComponents {
     public static final String ID = "id";
     public WebDriverComponents() {
         SetupWebDriver setup = new SetupWebDriver();
-        this.driver = setup.getDriver();
+        driver = setup.getDriver();
         this.wait = setup.getWait();
+    }
+
+    public static WebDriver getDriver() {
+        return driver;
     }
 
     public void exit() {

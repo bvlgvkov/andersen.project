@@ -12,6 +12,7 @@ import java.time.Duration;
 @Data
 public class SetupWebDriver {
     private WebDriver driver;
+
     private WebDriverWait wait;
 
     public SetupWebDriver() {

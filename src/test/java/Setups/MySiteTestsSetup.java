@@ -7,7 +7,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
 public class MySiteTestsSetup {
-    public static WebDriverComponents webDriverComponents;
+    private static WebDriverComponents webDriverComponents;
     public static LeetCodePage leetCodePage;
     public static GooglePage googlePage;
 

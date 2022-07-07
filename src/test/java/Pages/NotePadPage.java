@@ -1,14 +1,21 @@
 package Pages;
 
+import WebDriver.WebDriverComponents;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import WebDriver.WebDriverComponents;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 @AllArgsConstructor
+@DisplayName("Тестирование класса NotePadPage")
+@Feature("Test of NotePadPage Class")
 public class NotePadPage {
     WebDriverComponents webDriverComponents;
     private static final String TEXT = "editable_text";
@@ -22,18 +29,23 @@ public class NotePadPage {
     private static final String WEBSITE = "http://justnotepad.com/ru/";
     private static final String TEMP_URL_NAV = "temp_url_nav";
 
+    @Step("Поиск кнопки на создание временной ссылки")
+    @Story("Find button for creating temporary reference")
+    @Description("Проверяет наличие временной сслыки по ID и вытаскивает внутренний текст")
     public void getTabNav() {
         String expectedText = webDriverComponents.findElementById(TEMP_URL_NAV).getText();
         String actualText = "Создать временную ссылку для текущего текста";
         Assertions.assertEquals(actualText, expectedText);
     }
 
+    @Step("Поиск на кнопку удаления черновика")
     public void getDeleteDraft() {
         String expectedText = webDriverComponents.findElementById(DELETE_DRAFt).getText();
         String actualText = "Удалить";
         Assertions.assertEquals(actualText, expectedText);
     }
 
+    @Step("Открытие website")
     public void openWebsite() {
         webDriverComponents.changeSite(WEBSITE)
                 .visibilityOfElementLocatedByName(TEXT)
@@ -41,6 +53,7 @@ public class NotePadPage {
                 .findAndClickById(TEMP_URL_NAV);
     }
 
+    @Step("Установка пароля")
     public void setPassword() {
         webDriverComponents.findElementByName(PASSWORD)
                 .presenceOfElementLocatedByName(PASSWORD)
@@ -48,10 +61,12 @@ public class NotePadPage {
                 .clickAndSendKeys(PASSWORD_NUMBER);
     }
 
+    @Step("Поиск и нажатие на URL")
     public void createUrl() {
         webDriverComponents.findAndClickById(CREATE_URL);
     }
 
+    @Step("Получение специализированного атрибута")
     public void getTempAttribute() {
         String actualText = webDriverComponents.presenceOfElementLocatedById(TEMP_URL)
                 .visibilityOfElementLocatedById(TEMP_URL)
