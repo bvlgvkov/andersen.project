@@ -25,7 +25,7 @@ class CRMTests extends CRMTestsSetup {
 
         saucePage.findObjectOne();
 
-        saucePage.getShoppingCard();
+/*        saucePage.getShoppingCard();
 
         saucePage.acceptPurchase();
 
@@ -35,7 +35,7 @@ class CRMTests extends CRMTestsSetup {
 
         saucePage.getFinish();
 
-        saucePage.clickFinishIdButton();
+        saucePage.clickFinishIdButton();*/
     }
 
     @Test
