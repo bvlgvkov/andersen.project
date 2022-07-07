@@ -2,9 +2,7 @@ package Pages;
 
 import WebDriver.WebDriverComponents;
 import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
-import io.qameta.allure.Story;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Data
 @AllArgsConstructor
 @DisplayName("Тестирование класса NotePadPage")
-@Feature("Test of NotePadPage Class")
 public class NotePadPage {
     WebDriverComponents webDriverComponents;
     private static final String TEXT = "editable_text";
@@ -30,7 +27,6 @@ public class NotePadPage {
     private static final String TEMP_URL_NAV = "temp_url_nav";
 
     @Step("Поиск кнопки на создание временной ссылки")
-    @Story("Find button for creating temporary reference")
     @Description("Проверяет наличие временной сслыки по ID и вытаскивает внутренний текст")
     public void getTabNav() {
         String expectedText = webDriverComponents.findElementById(TEMP_URL_NAV).getText();

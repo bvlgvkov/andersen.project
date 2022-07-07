@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(ScreenshotExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class MySiteTests extends MySiteTestsSetup {
+class MySiteTest extends MySiteTestsSetup {
 
 //    @Test
 //    @Order(1)

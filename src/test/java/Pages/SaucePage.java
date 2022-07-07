@@ -39,13 +39,11 @@ public class SaucePage {
     private static final String FINISH = "finish";
 
     @Step("Открыть страницу")
-    @Story(value = "Open Website")
     public void openPage() {
         webDriverComponents.openWebsite(WEBSITE);
     }
 
     @Step("Залогиниться")
-    @Story(value = "Login Website")
     public SaucePage loginPage() {
         webDriverComponents.visibilityOfElementLocatedByName(LOGIN).clickAndSendKeys(LOGIN_NAME);
         webDriverComponents = webDriverComponents.findElementByName(PASSWORD).clickAndSendKeys(PASSWORD_NAME);
@@ -54,29 +52,24 @@ public class SaucePage {
     }
 
     @Step("Нажать логин button")
-    @Story(value = "Click Button")
     public void clickButton() {
         webDriverComponents.findAndClickByXpath(LOGIN_BUTTON);
     }
 
     @Step("Проверка на отображение картинку N1")
-    @Story(value = "Check Image")
     public void imageOneIsDisplayed() {
         Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_ONE));
     }
     @Step("Проверка на отображение картинку N2")
-    @Story(value = "Check Image")
     public void imageTwoIsDisplayed() {
         Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_TWO));
     }
     @Step("Поиск и нажатие специализированного товара")
-    @Story(value = "Click Button")
     public void findObjectOne() {
         webDriverComponents.findAndClickByXpath(BACKPACK);
     }
 
     @Step("Проверка на регистрацию магазинной карты")
-    @Story(value = "Check To Correct Existing")
     public void getShoppingCard() {
         String expectedElem = webDriverComponents.findAndGetTextByClassName(SHOPPING_CARD);
         String actualElem = "1";
@@ -84,13 +77,11 @@ public class SaucePage {
     }
 
     @Step("Подтверждение добавления покупки в контейнер")
-    @Story(value = "Click Button")
     public void acceptPurchase() {
         webDriverComponents.findAndClickByXpath(CONTAINER);
     }
 
     @Step("Заполнение персональных данных")
-    @Story(value = "Fill Data")
     public void fillPersonalData() {
         webDriverComponents.findAndClickByXpath(CHECKOUT_ID)
                 .findAndSendKeysByXPath(FIRST_NAME, NAME)

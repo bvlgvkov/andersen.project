@@ -8,13 +8,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(ScreenshotExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Epic(value = "CRM Tasks")
-class CRMTests extends CRMTestsSetup {
+class CRMTest extends CRMTestsSetup {
     @Test
     @Order(1)
     @Description("Создание и оформление заказа на Sauce Labs")
     @DisplayName("PurchaseInSaucePage")
-    @Feature(value = "SaucePage Tasks")
     @Severity(SeverityLevel.CRITICAL)
     public void oneTest() {
         saucePage.openPage();
@@ -42,7 +40,6 @@ class CRMTests extends CRMTestsSetup {
     @Order(2)
     @Description("Создает Закладку для пользователя с временной ссылкой")
     @DisplayName("LinkCreationInNotePad")
-    @Feature(value = "NotePad Tasks")
     @Severity(SeverityLevel.CRITICAL)
     public void twoTest() {
         notePadPage.openWebsite();
