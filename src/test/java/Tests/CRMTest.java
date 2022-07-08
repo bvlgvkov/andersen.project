@@ -6,52 +6,56 @@ import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @ExtendWith(ScreenshotExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Epic("CRM Tests")
 class CRMTest extends CRMTestsSetup {
+
     @Test
     @Order(1)
     @Description("Создание и оформление заказа на Sauce Labs")
-    @DisplayName("PurchaseInSaucePage")
+    @DisplayName("PurchaseOnSaucePage")
+    @Feature("Sauce Page Test")
     @Severity(SeverityLevel.CRITICAL)
     public void oneTest() {
         saucePage.openPage();
 
-        saucePage.loginPage().clickButton();
+        assertNotNull(saucePage.loginPage().clickButton());
 
-        saucePage.imageOneIsDisplayed();
+        assertTrue(saucePage.isFirstImageDisplayed());
 
-        saucePage.findObjectOne();
+        assertNotNull(saucePage.findObjectOne());
 
-/*        saucePage.getShoppingCard();
+        assertEquals("1", saucePage.getShoppingCard());
 
-        saucePage.acceptPurchase();
+        assertNotNull(saucePage.acceptPurchase());
 
-        saucePage.imageTwoIsDisplayed();
+        assertNotNull(saucePage.fillPersonalData());
 
-        saucePage.fillPersonalData();
+        assertEquals("FINISH", saucePage.getFinish());
 
-        saucePage.getFinish();
-
-        saucePage.clickFinishIdButton();*/
+        assertNotNull(saucePage.clickFinishIdButton());
     }
 
     @Test
     @Order(2)
     @Description("Создает Закладку для пользователя с временной ссылкой")
-    @DisplayName("LinkCreationInNotePad")
+    @DisplayName("LinkCreationToNotePad")
+    @Feature("NotePad Page Test")
     @Severity(SeverityLevel.CRITICAL)
     public void twoTest() {
         notePadPage.openWebsite();
 
-        notePadPage.getTabNav();
+        assertEquals("Создать временную ссылку для текущего текста", notePadPage.getTabNav());
 
-        notePadPage.getDeleteDraft();
+        assertEquals("Удалить", notePadPage.getDeleteDraft());
 
-        notePadPage.setPassword();
+        assertNotNull(notePadPage.setPassword());
 
-        notePadPage.createUrl();
+        assertNotNull(notePadPage.createUrl());
 
-        notePadPage.getTempAttribute();
+        assertEquals("text", notePadPage.getTempAttribute());
     }
 }

@@ -19,7 +19,6 @@ public class WebDriverComponents {
     private static final String PARTIAL_LINK_TEXT = "partialLinkText";
     private static final String NAME = "name";
     private static final String VISIBILITY = "visibility";
-
     public static final String ID = "id";
     public WebDriverComponents() {
         SetupWebDriver setup = new SetupWebDriver();
@@ -54,13 +53,13 @@ public class WebDriverComponents {
     }
 
     public WebDriverComponents visibilityOfElementLocated(String type, String name) {
-        if (Objects.equals(type, "name"))
+        if (Objects.equals(type, NAME))
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name(name)));
-        else if (Objects.equals(type, "className"))
+        else if (Objects.equals(type, CLASS_NAME))
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className(name)));
-        else if (Objects.equals(type, "id"))
+        else if (Objects.equals(type, ID))
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(name)));
-        else if (Objects.equals(type, "partialLinkText"))
+        else if (Objects.equals(type, PARTIAL_LINK_TEXT))
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText(name)));
         else
             element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(name)));
@@ -69,13 +68,13 @@ public class WebDriverComponents {
     }
 
     public WebDriverComponents presenceOfElementLocated(String type, String name) {
-        if (Objects.equals(type, "name"))
+        if (Objects.equals(type, NAME))
             element = wait.until(ExpectedConditions.presenceOfElementLocated(By.name(name)));
-        else if (Objects.equals(type, "className"))
+        else if (Objects.equals(type, CLASS_NAME))
             element = wait.until(ExpectedConditions.presenceOfElementLocated(By.className(name)));
-        else if (Objects.equals(type, "id"))
+        else if (Objects.equals(type, ID))
             element = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(name)));
-        else if (Objects.equals(type, "partialLinkText"))
+        else if (Objects.equals(type, PARTIAL_LINK_TEXT))
             element = wait.until(ExpectedConditions.presenceOfElementLocated(By.partialLinkText(name)));
 
         else
@@ -85,11 +84,11 @@ public class WebDriverComponents {
     }
 
     public WebDriverComponents findElement(String type, String name) {
-        if (Objects.equals(type, "name"))
+        if (Objects.equals(type, NAME))
             element = driver.findElement(By.name(name));
-        else if (Objects.equals(type, "className"))
+        else if (Objects.equals(type, CLASS_NAME))
             element = driver.findElement(By.className(name));
-        else if (Objects.equals(type, "id"))
+        else if (Objects.equals(type, ID))
             element = driver.findElement(By.id(name));
         else
             element = driver.findElement(By.xpath(name));
@@ -102,11 +101,11 @@ public class WebDriverComponents {
     }
 
     public WebDriverComponents attributeContain(String type, String name, String property, String value) {
-        if (Objects.equals(type, "name"))
+        if (Objects.equals(type, NAME))
             wait.until(ExpectedConditions.attributeContains(By.name(name), property, value));
-        else if (Objects.equals(type, "className"))
+        else if (Objects.equals(type, CLASS_NAME))
             wait.until(ExpectedConditions.attributeContains(By.className(name), property, value));
-        else if (Objects.equals(type, "id"))
+        else if (Objects.equals(type, ID))
             wait.until(ExpectedConditions.attributeContains(By.id(name), property, value));
         else
             wait.until(ExpectedConditions.attributeContains(By.xpath(name), property, value));
@@ -121,8 +120,8 @@ public class WebDriverComponents {
         return this;
     }
 
-    public void findAndClick(String type, String name) {
-        findElement(type, name).clickElement();
+    public WebDriverComponents findAndClick(String type, String name) {
+        return findElement(type, name).clickElement();
     }
 
     public WebDriverComponents findElementByName(String name) {
@@ -240,7 +239,7 @@ public class WebDriverComponents {
         return visibilityOfElementLocated(NAME, name);
     }
 
-    public void findAndClickById(String name) {
-        findAndClick(ID, name);
+    public WebDriverComponents findAndClickById(String name) {
+        return findAndClick(ID, name);
     }
 }

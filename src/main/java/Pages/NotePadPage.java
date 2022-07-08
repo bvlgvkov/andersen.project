@@ -1,14 +1,10 @@
 package Pages;
 
 import WebDriver.WebDriverComponents;
-import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Data
 @AllArgsConstructor
@@ -27,18 +23,13 @@ public class NotePadPage {
     private static final String TEMP_URL_NAV = "temp_url_nav";
 
     @Step("Поиск кнопки на создание временной ссылки")
-    @Description("Проверяет наличие временной сслыки по ID и вытаскивает внутренний текст")
-    public void getTabNav() {
-        String expectedText = webDriverComponents.findElementById(TEMP_URL_NAV).getText();
-        String actualText = "Создать временную ссылку для текущего текста";
-        Assertions.assertEquals(actualText, expectedText);
+    public String getTabNav() {
+        return webDriverComponents.findElementById(TEMP_URL_NAV).getText();
     }
 
     @Step("Поиск на кнопку удаления черновика")
-    public void getDeleteDraft() {
-        String expectedText = webDriverComponents.findElementById(DELETE_DRAFt).getText();
-        String actualText = "Удалить";
-        Assertions.assertEquals(actualText, expectedText);
+    public String getDeleteDraft() {
+        return webDriverComponents.findElementById(DELETE_DRAFt).getText();
     }
 
     @Step("Открытие website")
@@ -50,24 +41,23 @@ public class NotePadPage {
     }
 
     @Step("Установка пароля")
-    public void setPassword() {
-        webDriverComponents.findElementByName(PASSWORD)
+    public WebDriverComponents setPassword() {
+        return webDriverComponents.findElementByName(PASSWORD)
                 .presenceOfElementLocatedByName(PASSWORD)
                 .visibilityOfElementLocatedByName(PASSWORD)
                 .clickAndSendKeys(PASSWORD_NUMBER);
     }
 
     @Step("Поиск и нажатие на URL")
-    public void createUrl() {
-        webDriverComponents.findAndClickById(CREATE_URL);
+    public WebDriverComponents createUrl() {
+        return webDriverComponents.findAndClickById(CREATE_URL);
     }
 
     @Step("Получение специализированного атрибута")
-    public void getTempAttribute() {
-        String actualText = webDriverComponents.presenceOfElementLocatedById(TEMP_URL)
+    public String getTempAttribute() {
+        return webDriverComponents.presenceOfElementLocatedById(TEMP_URL)
                 .visibilityOfElementLocatedById(TEMP_URL)
                 .findElementById(TEMP_URL).getAttribute(TYPE);
-        String expectedText = "text";
-        assertEquals(actualText, expectedText);
+
     }
 }

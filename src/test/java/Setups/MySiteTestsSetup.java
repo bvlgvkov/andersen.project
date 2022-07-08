@@ -5,6 +5,7 @@ import Pages.LeetCodePage;
 import WebDriver.WebDriverComponents;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 
 public class MySiteTestsSetup {
     private static WebDriverComponents webDriverComponents;
@@ -12,6 +13,7 @@ public class MySiteTestsSetup {
     public static GooglePage googlePage;
 
     @BeforeAll
+    @DisplayName("Установка основных настроек")
     public static void setupAll() {
         webDriverComponents = new WebDriverComponents();
         leetCodePage = new LeetCodePage(webDriverComponents);
@@ -19,6 +21,7 @@ public class MySiteTestsSetup {
     }
 
     @AfterAll
+    @DisplayName("Закрытие компонентов Драйвера")
     public static void tearDown() {
         webDriverComponents.exit();
     }
