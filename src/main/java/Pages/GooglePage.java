@@ -4,8 +4,10 @@ package Pages;
 import WebDriver.WebDriverComponents;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.Keys;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @Data
 @AllArgsConstructor
@@ -34,7 +36,7 @@ public class GooglePage {
     }
 
     public void getMainElem() {
-        Assertions.assertTrue(webDriverComponents.findElementByClassName(MAIN_ELEM).isDisplayed());
+        assertTrue(webDriverComponents.findElementByClassName(MAIN_ELEM).isDisplayed());
     }
 
     public void pressEnter() {
@@ -42,17 +44,17 @@ public class GooglePage {
     }
 
     public void getLogo() {
-        Assertions.assertTrue(webDriverComponents.findElementByXpath(LOGO).isDisplayed());
+        assertTrue(webDriverComponents.findElementByXpath(LOGO).isDisplayed());
     }
 
     public void getImageOne() {
         String actualText = webDriverComponents.findElementByClassName(IMAGE_1).getText();
         String expectedText = "Картинки по запросу Let's Write The code ! :)";
-        Assertions.assertEquals(expectedText, actualText);
+        assertEquals(expectedText, actualText);
     }
 
     public void getImageTwo() {
-        Assertions.assertTrue(webDriverComponents.findElementByXpath(IMAGE_2).isDisplayed());
+        assertTrue(webDriverComponents.findElementByXpath(IMAGE_2).isDisplayed());
     }
 
     public void sendNewMassage() {
@@ -63,7 +65,7 @@ public class GooglePage {
     public void checkToVisible() {
         String actualText = webDriverComponents.findElementByClassName(ELEMENT).getCssValueByVisibility();
         String expectedText = "visible";
-        Assertions.assertEquals(expectedText, actualText);
+        assertEquals(expectedText, actualText);
     }
 
     public void checkToHidden() {
@@ -71,6 +73,6 @@ public class GooglePage {
                 .attributeContainByClassName(ELEMENT, webDriverComponents.getVisibility(), HIDDEN)
                 .getCssValueByVisibility();
         String expectedText = "hidden";
-        Assertions.assertEquals(expectedText, actualText);
+        assertEquals(expectedText, actualText);
     }
 }

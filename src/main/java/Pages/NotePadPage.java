@@ -2,17 +2,18 @@ package Pages;
 
 import WebDriver.WebDriverComponents;
 import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
+import io.qameta.allure.junit4.DisplayName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 @Data
 @AllArgsConstructor
 @DisplayName("Тестирование класса NotePadPage")
+@Feature("NotePad Page Test")
 public class NotePadPage {
     WebDriverComponents webDriverComponents;
     private static final String TEXT = "editable_text";
@@ -31,14 +32,14 @@ public class NotePadPage {
     public void getTabNav() {
         String expectedText = webDriverComponents.findElementById(TEMP_URL_NAV).getText();
         String actualText = "Создать временную ссылку для текущего текста";
-        Assertions.assertEquals(actualText, expectedText);
+        assertEquals(actualText, expectedText);
     }
 
     @Step("Поиск на кнопку удаления черновика")
     public void getDeleteDraft() {
         String expectedText = webDriverComponents.findElementById(DELETE_DRAFt).getText();
         String actualText = "Удалить";
-        Assertions.assertEquals(actualText, expectedText);
+        assertEquals(actualText, expectedText);
     }
 
     @Step("Открытие website")

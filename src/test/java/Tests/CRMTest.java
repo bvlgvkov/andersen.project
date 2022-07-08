@@ -1,19 +1,22 @@
 package Tests;
 
-import ScreenshotExtension.ScreenshotExtension;
 import Setups.CRMTestsSetup;
 import io.qameta.allure.*;
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.extension.ExtendWith;
+import io.qameta.allure.junit4.DisplayName;
+import lombok.NoArgsConstructor;
+import org.junit.Test;
 
-@ExtendWith(ScreenshotExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class CRMTest extends CRMTestsSetup {
+//@ExtendWith(ScreenshotExtension.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Epic("Web Application Regression Testing using JUnit4")
+@Feature("Login Page Tests")
+@NoArgsConstructor
+public class CRMTest extends CRMTestsSetup {
+
+    @Severity(SeverityLevel.BLOCKER)
     @Test
-    @Order(1)
-    @Description("Создание и оформление заказа на Sauce Labs")
-    @DisplayName("PurchaseInSaucePage")
-    @Severity(SeverityLevel.CRITICAL)
+    @Description("Test Description : After successful login to application opens Dashboard page")
+    @Story("Successful login of application opens Dashboard Page")
     public void oneTest() {
         saucePage.openPage();
 
@@ -37,8 +40,7 @@ class CRMTest extends CRMTestsSetup {
     }
 
     @Test
-    @Order(2)
-    @Description("Создает Закладку для пользователя с временной ссылкой")
+    @Description("Создание Закладки для пользователя с временной ссылкой")
     @DisplayName("LinkCreationInNotePad")
     @Severity(SeverityLevel.CRITICAL)
     public void twoTest() {

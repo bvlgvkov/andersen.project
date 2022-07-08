@@ -1,14 +1,13 @@
 package Tests;
 
-import ScreenshotExtension.ScreenshotExtension;
 import Setups.MySiteTestsSetup;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.extension.ExtendWith;
+import lombok.NoArgsConstructor;
 
-@ExtendWith(ScreenshotExtension.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class MySiteTest extends MySiteTestsSetup {
+
+//@ExtendWith(ScreenshotExtension.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@NoArgsConstructor
+public class MySiteTest extends MySiteTestsSetup {
 
 //    @Test
 //    @Order(1)

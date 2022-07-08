@@ -2,18 +2,20 @@ package Pages;
 
 
 import WebDriver.WebDriverComponents;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
+import io.qameta.allure.junit4.DisplayName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @Data
 @AllArgsConstructor
 @DisplayName("Тестирование класса SaucePage")
+@Feature("Sauce Page Test")
 public class SaucePage {
     WebDriverComponents webDriverComponents;
     private static final String LOGIN_BUTTON = "//*[@id=\"login-button\"]";
@@ -58,11 +60,11 @@ public class SaucePage {
 
     @Step("Проверка на отображение картинку N1")
     public void imageOneIsDisplayed() {
-        Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_ONE));
+        assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_ONE));
     }
     @Step("Проверка на отображение картинку N2")
     public void imageTwoIsDisplayed() {
-        Assertions.assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_TWO));
+        assertTrue(webDriverComponents.isDisplayedByClassName(IMAGE_TWO));
     }
     @Step("Поиск и нажатие специализированного товара")
     public void findObjectOne() {
@@ -73,7 +75,7 @@ public class SaucePage {
     public void getShoppingCard() {
         String expectedElem = webDriverComponents.findAndGetTextByClassName(SHOPPING_CARD);
         String actualElem = "1";
-        Assertions.assertEquals(actualElem, expectedElem);
+        assertEquals(actualElem, expectedElem);
     }
 
     @Step("Подтверждение добавления покупки в контейнер")
