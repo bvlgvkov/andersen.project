@@ -1,6 +1,6 @@
 package Tests;
 
-import Helpers.ScreenshotExtension;
+import Utils.ScreenshotExtension;
 import Setups.CRMTestsSetup;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;
@@ -16,7 +16,7 @@ class CRMTest extends CRMTestsSetup {
     @Test
     @Order(1)
     @Description("Создание и оформление заказа на Sauce Labs")
-    @DisplayName("PurchaseOnSaucePage")
+    @DisplayName("Оформление покупки на сайте SaucePage")
     @Feature("Sauce Page Test")
     @Severity(SeverityLevel.CRITICAL)
     public void oneTest() {
@@ -42,7 +42,7 @@ class CRMTest extends CRMTestsSetup {
     @Test
     @Order(2)
     @Description("Создает Закладку для пользователя с временной ссылкой")
-    @DisplayName("LinkCreationToNotePad")
+    @DisplayName("Создание закладки с последующим созданием ссылки на сайте NotePad")
     @Feature("NotePad Page Test")
     @Severity(SeverityLevel.CRITICAL)
     public void twoTest() {

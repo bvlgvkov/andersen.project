@@ -1,4 +1,4 @@
-package Helpers;
+package Utils;
 
 import WebDriver.WebDriverComponents;
 import io.qameta.allure.Allure;

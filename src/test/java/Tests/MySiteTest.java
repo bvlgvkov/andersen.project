@@ -1,6 +1,6 @@
 package Tests;
 
-import Helpers.ScreenshotExtension;
+import Utils.ScreenshotExtension;
 import Setups.MySiteTestsSetup;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
@@ -18,8 +18,8 @@ class MySiteTest extends MySiteTestsSetup {
 
     @Test
     @Order(1)
-    @Description("Вход на сайт LeetCode")
-    @DisplayName("LoginToLeetCodeWebsite")
+    @Description("Вход на сайт LeetCode c проверкой на корректное отображение текста")
+    @DisplayName("Вход на сайт LeetCode")
     @Feature("LeetCode Test")
     @Severity(SeverityLevel.CRITICAL)
     public void oneTest() {
@@ -37,7 +37,7 @@ class MySiteTest extends MySiteTestsSetup {
     @Test
     @Order(2)
     @Description("Открытие основной задачи по алгоритмам")
-    @DisplayName("MainTaskOnLeetCode")
+    @DisplayName("Загрузка основного задания на сайте Leetcode")
     @Feature("LeetCode Test")
     @Severity(SeverityLevel.CRITICAL)
     public void twoTest() {
@@ -57,7 +57,7 @@ class MySiteTest extends MySiteTestsSetup {
     @Test
     @Order(3)
     @Description("Открытие Google страницы с последующий поиском и проверкой на корректность основного лого")
-    @DisplayName("GoogleRequestAndCheckingLogo")
+    @DisplayName("Поиск в Гугл сайта и проверка на корректный Логотип")
     @Feature("Google Test")
     @Severity(SeverityLevel.CRITICAL)
     public void threeTest() {
@@ -75,7 +75,7 @@ class MySiteTest extends MySiteTestsSetup {
     @Test
     @Order(4)
     @Description("Отправка нового запроса в гугл и проверка на раскрытие-скрытие вложенного текста")
-    @DisplayName("SecondGoogleRequestAndCheckingText")
+    @DisplayName("Вторая проверка Гугл сайта с проверкой на отображение скрытого текста")
     @Feature("Google Test")
     @Severity(SeverityLevel.CRITICAL)
     public void fourTest() {

@@ -1,4 +1,4 @@
-package Pages;
+package PageObjects;
 
 import WebDriver.WebDriverComponents;
 import io.qameta.allure.Step;

@@ -1,13 +1,13 @@
 package Setups;
 
-import Pages.NotePadPage;
-import Pages.SaucePage;
+import PageObjects.NotePadPage;
+import PageObjects.SaucePage;
 import WebDriver.WebDriverComponents;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
-import static Helpers.PrintLogger.printWebLogger;
+import static Utils.PrintLogger.printWebLogger;
 
 public class CRMTestsSetup {
     private static WebDriverComponents webDriverComponents;

@@ -1,13 +1,13 @@
 package Setups;
 
-import Pages.GooglePage;
-import Pages.LeetCodePage;
+import PageObjects.GooglePage;
+import PageObjects.LeetCodePage;
 import WebDriver.WebDriverComponents;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
-import static Helpers.PrintLogger.printWebLogger;
+import static Utils.PrintLogger.printWebLogger;
 
 public class MySiteTestsSetup {
     private static WebDriverComponents webDriverComponents;
