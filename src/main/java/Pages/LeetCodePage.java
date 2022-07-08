@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.openqa.selenium.WebElement;
 
+import static WebDriver.WebDriverComponents.*;
+
 @Data
 @AllArgsConstructor
 public class LeetCodePage {
@@ -31,54 +33,54 @@ public class LeetCodePage {
 
     @Step("Получение текста из главного оглавления страницы")
     public String getMainTitleText() {
-        return webDriverComponents.presenceOfElementLocatedByXPath(MAIN_IFRAME).getTitle();
+        return webDriverComponents.presenceOfElementLocated(X_PATH, MAIN_IFRAME).getTitle();
     }
 
     @Step("Получение текста из запроса на вход")
     public String findElementSignInWith() {
-        return webDriverComponents.findElementByClassName(OR_YOU_CAN_SIGN_IN_WITH).getText();
+        return webDriverComponents.findElement(CLASS_NAME, OR_YOU_CAN_SIGN_IN_WITH).getText();
     }
 
     @Step("Ввод логина и пароля")
     public WebDriverComponents loginPage() {
-        return webDriverComponents.visibilityOfElementLocatedByXPath(LOGIN)
+        return webDriverComponents.visibilityOfElementLocated(X_PATH, LOGIN)
                 .clickAndSendKeys(LOGIN_NAME)
-                .visibilityOfElementLocatedByXPath(PASSWORD)
+                .visibilityOfElementLocated(X_PATH, PASSWORD)
                 .clickAndSendKeys(PASSWORD_NAME);
     }
 
     @Step("Подтверждение входа на сайт")
     public WebDriverComponents clickSignInBotton() {
-        return webDriverComponents.presenceOfElementLocatedByXPath(SIGN_IN_BOTTOM)
-                .visibilityOfElementLocatedByXPath(SIGN_IN_BOTTOM)
-                .findAndClickByXpath(SIGN_IN_BOTTOM);
+        return webDriverComponents.presenceOfElementLocated(X_PATH, SIGN_IN_BOTTOM)
+                .visibilityOfElementLocated(X_PATH, SIGN_IN_BOTTOM)
+                .findElement(X_PATH, SIGN_IN_BOTTOM).clickElement();
     }
 
 
     @Step("Вход во вкладку задач")
     public WebElement getElemProblem() {
-        return webDriverComponents.presenceOfElementLocatedByLink(PROBLEMS)
-                .visibilityOfElementLocatedByLink(PROBLEMS).getElement();
+        return webDriverComponents.presenceOfElementLocated(PARTIAL_LINK_TEXT, PROBLEMS)
+                .visibilityOfElementLocated(PARTIAL_LINK_TEXT, PROBLEMS).getElement();
     }
 
     @Step("Проверка на отображение основного лога")
     public boolean isLogoDisplayed() {
-        return webDriverComponents.findElementByClassName(LOGO).isDisplayed();
+        return webDriverComponents.findElement(CLASS_NAME, LOGO).isDisplayed();
     }
 
     @Step("Подтверждение открытия основной задачи")
     public WebDriverComponents clickTwoSum() {
-        return webDriverComponents.visibilityOfElementLocatedByLink(TWO_SUM).clickElement()
-                .presenceOfElementLocatedByXPath(MAIN_IFRAME);
+        return webDriverComponents.visibilityOfElementLocated(PARTIAL_LINK_TEXT, TWO_SUM).clickElement()
+                .presenceOfElementLocated(X_PATH, MAIN_IFRAME);
     }
 
     @Step("Получение текста из уровня задачи")
     public String getEasyText() {
-        return webDriverComponents.findElementByClassName(EASY).getText();
+        return webDriverComponents.findElement(CLASS_NAME, EASY).getText();
     }
 
     @Step("Ожидание прогрузки основного фрейма")
     public void waitContributePromo() {
-        webDriverComponents.visibilityOfElementLocatedByXPath(CONTRIBUTE_PROMO);
+        webDriverComponents.visibilityOfElementLocated(X_PATH, CONTRIBUTE_PROMO);
     }
 }

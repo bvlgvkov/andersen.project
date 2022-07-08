@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.openqa.selenium.Keys;
 
+import static WebDriver.WebDriverComponents.*;
+
 @Data
 @AllArgsConstructor
 public class GooglePage {
@@ -25,7 +27,7 @@ public class GooglePage {
 
     @Step("Открыть гугл страницу")
     public GooglePage openGoogle() {
-        webDriverComponents = webDriverComponents.changeSite(WEBSITE).visibilityOfElementLocatedByName(Q);
+        webDriverComponents = webDriverComponents.changeSite(WEBSITE).visibilityOfElementLocated(NAME, Q);
 
         return this;
     }
@@ -37,44 +39,44 @@ public class GooglePage {
 
     @Step("Проверка отображения временного логотипа")
     public boolean isFirstImageDisplayed() {
-        return webDriverComponents.findElementByClassName(MAIN_ELEM).isDisplayed();
+        return webDriverComponents.findElement(CLASS_NAME, MAIN_ELEM).isDisplayed();
     }
 
     @Step("Отправка запроса в строку ввода")
     public void pressEnter() {
-        webDriverComponents.visibilityOfElementLocatedByName(Q).sendKeys(Keys.RETURN);
+        webDriverComponents.visibilityOfElementLocated(NAME, Q).sendKeys(Keys.RETURN);
     }
 
     @Step("Проверка отображения главного логотипа")
     public Boolean getLogo() {
-        return webDriverComponents.findElementByXpath(LOGO).isDisplayed();
+        return webDriverComponents.findElement(X_PATH, LOGO).isDisplayed();
     }
 
     @Step("Проверка корректности текста внутри директивы картинки")
     public String getTextInsideImageEntity() {
-        return webDriverComponents.findElementByClassName(IMAGE_1).getText();
+        return webDriverComponents.findElement(CLASS_NAME, IMAGE_1).getText();
     }
 
     @Step("Проверка отображения второй картинки")
     public boolean isSecondImageDisplayed() {
-        return webDriverComponents.findElementByXpath(IMAGE_2).isDisplayed();
+        return webDriverComponents.findElement(X_PATH, IMAGE_2).isDisplayed();
     }
 
     @Step("Отправка нового запроса в гугл и его подтверждение")
     public void sendNewMassage() {
-        webDriverComponents.visibilityOfElementLocatedByName(Q).clear().sendKeys(WEB_DRIVER_TESTS_EXAMPLE)
+        webDriverComponents.visibilityOfElementLocated(NAME, Q).clear().sendKeys(WEB_DRIVER_TESTS_EXAMPLE)
                 .sendKeys(Keys.RETURN);
     }
 
     @Step("Проверка видимости вложенной сущности на видимость")
     public String checkToVisible() {
-        return webDriverComponents.findElementByClassName(ELEMENT).getCssValueByVisibility();
+        return webDriverComponents.findElement(CLASS_NAME, ELEMENT).getCssValueByVisibility();
     }
 
     @Step("Проверка видимости вложенной сущности на скрытность")
     public String checkToHidden() {
         return webDriverComponents.clickElement()
-                .attributeContainByClassName(ELEMENT, webDriverComponents.getVisibility(), HIDDEN)
+                .attributeContain(CLASS_NAME, ELEMENT, VISIBILITY, HIDDEN)
                 .getCssValueByVisibility();
     }
 }

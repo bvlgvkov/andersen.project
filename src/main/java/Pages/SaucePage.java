@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.DisplayName;
 
+import static WebDriver.WebDriverComponents.*;
+
 @Data
 @AllArgsConstructor
 @DisplayName("Тестирование класса SaucePage")
@@ -38,55 +40,56 @@ public class SaucePage {
         webDriverComponents.openWebsite(WEBSITE);
     }
 
+
     @Step("Залогиниться")
     public SaucePage loginPage() {
-        webDriverComponents.visibilityOfElementLocatedByName(LOGIN).clickAndSendKeys(LOGIN_NAME);
-        webDriverComponents = webDriverComponents.findElementByName(PASSWORD).clickAndSendKeys(PASSWORD_NAME);
+        webDriverComponents.visibilityOfElementLocated(ID, LOGIN).clickAndSendKeys(LOGIN_NAME);
+        webDriverComponents = webDriverComponents.findElement(ID, PASSWORD).clickAndSendKeys(PASSWORD_NAME);
 
         return this;
     }
 
     @Step("Нажать логин кнопку")
     public WebDriverComponents clickButton() {
-        return webDriverComponents.findAndClickByXpath(LOGIN_BUTTON);
+        return webDriverComponents.findElement(X_PATH, LOGIN_BUTTON).clickElement();
     }
 
-    @Step("Проверка на отображение картинку N1")
+    @Step("Проверка на отображение картинки №1")
     public boolean isFirstImageDisplayed() {
-        return webDriverComponents.isDisplayedByClassName(IMAGE_ONE);
+        return webDriverComponents.findElement(CLASS_NAME, IMAGE_ONE).isDisplayed();
     }
 
     @Step("Поиск и нажатие специализированного товара")
     public WebDriverComponents findObjectOne() {
-        return webDriverComponents.findAndClickByXpath(BACKPACK);
+        return webDriverComponents.findElement(X_PATH, BACKPACK).clickElement();
     }
 
     @Step("Проверка на регистрацию магазинной карты")
     public String getShoppingCard() {
-        return webDriverComponents.findAndGetTextByClassName(SHOPPING_CARD);
+        return webDriverComponents.findElement(CLASS_NAME, SHOPPING_CARD).getText();
     }
 
     @Step("Подтверждение добавления покупки в контейнер")
     public WebDriverComponents acceptPurchase() {
-        return webDriverComponents.findAndClickByXpath(CONTAINER);
+        return webDriverComponents.findElement(X_PATH, CONTAINER).clickElement();
     }
 
     @Step("Заполнение персональных данных")
     public WebDriverComponents fillPersonalData() {
-        return webDriverComponents.findAndClickByXpath(CHECKOUT_ID)
-                .findAndSendKeysByXPath(FIRST_NAME, NAME)
-                .findAndSendKeysByXPath(LAST_NAME, SURNAME)
-                .findAndSendKeysByXPath(POSTAL_CODE, POSTCODE)
-                .findAndClickByXpath(CONTINUE);
+        return webDriverComponents.findElement(X_PATH, CHECKOUT_ID).clickElement()
+                .findAndSendKeys(X_PATH, FIRST_NAME, NAME)
+                .findAndSendKeys(X_PATH, LAST_NAME, SURNAME)
+                .findAndSendKeys(X_PATH, POSTAL_CODE, POSTCODE)
+                .findElement(X_PATH, CONTINUE).clickElement();
     }
 
     @Step("Поиск кнопки подтверждения окончательной покупки")
     public String getFinish() {
-        return webDriverComponents.findAndGetTextById(FINISH);
+        return webDriverComponents.findElement(ID, FINISH).getText();
     }
 
     @Step("Подтверждение окончательной покупки")
     public WebDriverComponents clickFinishIdButton() {
-        return webDriverComponents.findAndClickByXpath(FINISH_ID);
+        return webDriverComponents.findElement(X_PATH, FINISH_ID).clickElement();
     }
 }

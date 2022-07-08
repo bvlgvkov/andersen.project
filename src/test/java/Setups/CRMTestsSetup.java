@@ -7,6 +7,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 
+import static Helpers.PrintLogger.printWebLogger;
+
 public class CRMTestsSetup {
     private static WebDriverComponents webDriverComponents;
     public static SaucePage saucePage;
@@ -23,6 +25,8 @@ public class CRMTestsSetup {
     @AfterAll
     @DisplayName("Закрытие компонентов Драйвера")
     public static void tearDown() {
+        printWebLogger();
+
         webDriverComponents.exit();
     }
 }

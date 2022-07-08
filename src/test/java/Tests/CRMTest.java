@@ -1,6 +1,6 @@
 package Tests;
 
-import ScreenshotExtension.ScreenshotExtension;
+import Helpers.ScreenshotExtension;
 import Setups.CRMTestsSetup;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.*;

@@ -1,6 +1,6 @@
 package Tests;
 
-import ScreenshotExtension.ScreenshotExtension;
+import Helpers.ScreenshotExtension;
 import Setups.MySiteTestsSetup;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
@@ -32,8 +32,6 @@ class MySiteTest extends MySiteTestsSetup {
         assertNotNull(leetCodePage.loginPage());
 
         assertNotNull(leetCodePage.clickSignInBotton());
-
-        leetCodePage.waitContributePromo();
     }
 
     @Test
@@ -43,6 +41,8 @@ class MySiteTest extends MySiteTestsSetup {
     @Feature("LeetCode Test")
     @Severity(SeverityLevel.CRITICAL)
     public void twoTest() {
+        leetCodePage.waitContributePromo();
+
         WebElement elem = leetCodePage.getElemProblem();
 
         assertTrue(leetCodePage.isLogoDisplayed());

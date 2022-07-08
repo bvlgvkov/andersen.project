@@ -1,4 +1,4 @@
-package ScreenshotExtension;
+package Helpers;
 
 import WebDriver.WebDriverComponents;
 import io.qameta.allure.Allure;

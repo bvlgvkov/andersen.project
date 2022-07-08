@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.junit.jupiter.api.DisplayName;
 
+import static WebDriver.WebDriverComponents.ID;
+import static WebDriver.WebDriverComponents.NAME;
+
 @Data
 @AllArgsConstructor
 @DisplayName("Тестирование класса NotePadPage")
@@ -24,40 +27,41 @@ public class NotePadPage {
 
     @Step("Поиск кнопки на создание временной ссылки")
     public String getTabNav() {
-        return webDriverComponents.findElementById(TEMP_URL_NAV).getText();
+        return webDriverComponents.findElement(ID, TEMP_URL_NAV).getText();
     }
 
     @Step("Поиск на кнопку удаления черновика")
     public String getDeleteDraft() {
-        return webDriverComponents.findElementById(DELETE_DRAFt).getText();
+        return webDriverComponents.findElement(ID, DELETE_DRAFt).getText();
     }
 
     @Step("Открытие website")
     public void openWebsite() {
         webDriverComponents.changeSite(WEBSITE)
-                .visibilityOfElementLocatedByName(TEXT)
+                .visibilityOfElementLocated(NAME, TEXT)
                 .clickAndSendKeys(FULL_NAME)
-                .findAndClickById(TEMP_URL_NAV);
+                .findElement(ID, TEMP_URL_NAV).clickElement();
     }
 
     @Step("Установка пароля")
     public WebDriverComponents setPassword() {
-        return webDriverComponents.findElementByName(PASSWORD)
-                .presenceOfElementLocatedByName(PASSWORD)
-                .visibilityOfElementLocatedByName(PASSWORD)
+        return webDriverComponents.findElement(NAME, PASSWORD)
+                .presenceOfElementLocated(NAME, PASSWORD)
+                .visibilityOfElementLocated(NAME, PASSWORD)
                 .clickAndSendKeys(PASSWORD_NUMBER);
     }
 
     @Step("Поиск и нажатие на URL")
     public WebDriverComponents createUrl() {
-        return webDriverComponents.findAndClickById(CREATE_URL);
+        return webDriverComponents.findElement(ID, CREATE_URL).clickElement();
     }
+
 
     @Step("Получение специализированного атрибута")
     public String getTempAttribute() {
-        return webDriverComponents.presenceOfElementLocatedById(TEMP_URL)
-                .visibilityOfElementLocatedById(TEMP_URL)
-                .findElementById(TEMP_URL).getAttribute(TYPE);
+        return webDriverComponents.presenceOfElementLocated(ID, TEMP_URL)
+                .visibilityOfElementLocated(ID, TEMP_URL)
+                .findElement(ID, TEMP_URL).getAttribute(TYPE);
 
     }
 }
